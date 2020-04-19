@@ -3,6 +3,20 @@
 % Written for INFO48874
 % April 17th 2020
 
+clear;
+ % Seed, change this (or remove) for different initial conditions
+rng(2);  
+h_fig = figure;
+% PAYOFF MATRIX
+% Reward for cheating
+TEMPTATION = 1;
+% Sucker's payoff - when you cooperate and other one cheats
+S_PAYOFF = 0;
+% Reward for both cooperating
+REWARD = 1;
+% Both players cheat
+PUNISHMENT = 0;
+
 % Automaton grid automaton_dimensions X automaton_dimensions
 % Cooperator = 0, Defector = 1
 automaton_dimensions=50;
