@@ -34,3 +34,19 @@ for i=1:100000
         break;
     end
 end
+
+function [m] = PlayGame(x,y)
+    rewardType = x * 2 + y;
+    switch rewardType
+        case 0 
+            m = REWARD;  % CC: Reward for mutual cooperation
+        case 1
+            m = S_PAYOFF;  % CD: Sucker's payoff 
+        case 2
+            m = TEMPTATION;  % DC: Temptation to defect
+        case 3
+            m = PUNISHMENT;  % DD: Punishment for mutual defection
+        otherwise
+            disp("Strategy should be either 0 or 1.");
+    end
+end
