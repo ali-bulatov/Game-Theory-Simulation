@@ -2,7 +2,6 @@
 % By Ali Bulatov and Mohammed Patla
 % Written for INFO48874
 % April 17th 2020
-
 clear;
 clc;
 main();
@@ -13,7 +12,7 @@ function main()
     h_fig = figure;
     % PAYOFF MATRIX
     % Reward for cheating
-    TEMPTATION = 1.5;
+    TEMPTATION = 1.3;
     % Sucker's payoff - when you cooperate and other one cheats
     S_PAYOFF = 0;
     % Reward for both cooperating
@@ -23,10 +22,11 @@ function main()
 
     % Automaton grid automaton_dimensions X automaton_dimensions
     % Cooperator = 0, Defector = 1
-    l=50;
-    GRID=int8(rand(l,l));
+    l=20;   % Automaton dimensions lxl
+    GRID=int8(rand(l,l));   % Randomly distribute amount of cooperators and defectors
     % Score matrix with scores of each player
     SCORE=(zeros(l));
+    OUTPUT=zeros(l);
 
     for i=1:100000
         % 1. each agent accumulates the payoff obtained by playing
@@ -71,9 +71,10 @@ function main()
                 s = bestStrategies(idx) + 2;
             end
             GRID(idx) = binarize(s);
+            OUTPUT(idx) = s;
         end
        
-        image(GRID,'CDataMapping','scaled');
+        image(OUTPUT,'CDataMapping','scaled');
         colorbar
         
         pause(0.5);
