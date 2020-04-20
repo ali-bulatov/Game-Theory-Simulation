@@ -13,7 +13,7 @@ function main()
     h_fig = figure;
     % PAYOFF MATRIX
     % Reward for cheating
-    TEMPTATION = 1;
+    TEMPTATION = 1.5;
     % Sucker's payoff - when you cooperate and other one cheats
     S_PAYOFF = 0;
     % Reward for both cooperating
@@ -23,27 +23,56 @@ function main()
 
     % Automaton grid automaton_dimensions X automaton_dimensions
     % Cooperator = 0, Defector = 1
-    l=3;
+    l=50;
     GRID=int8(rand(l,l));
     % Score matrix with scores of each player
     SCORE=(zeros(l));
 
-    for i=1:1
-       
-        
+    for i=1:100000
         % 1. each agent accumulates the payoff obtained by playing
         %  the game with all its neighbours and itself
         for idx = 1:numel(GRID)
             X = GRID(idx);
             score = playGame(X, X);
             N = getNeighbors(idx);
-            disp(getNeighbors(3));
-           % for n = 1:numel(N)
-           %     score = score + playGame(X, N);
-           % end
+            % Compute scores by playing with each neighbor
+            for n = 1:numel(N)
+                score = score + playGame(X, N(n));
+            end
             SCORE(idx) = score;
+            %disp(SCORE);
         end
         
+        bestStrategies = zeros(l);
+        % 2. the best agent in the neighbourhood is selected to reproduce
+        for idx = 1:numel(GRID)
+            bestStrategy = GRID(idx);
+            highestScore = SCORE(idx);
+            
+            [N,M] = getNeighbors(idx);
+            for n = 1:numel(M)
+                neighbourScore = M(n);
+                neighborStrategy = N(n);
+                if (neighbourScore > highestScore) 
+                    highestScore = neighbourScore;
+                    bestStrategy = neighborStrategy;
+                end
+            end
+            bestStrategies(idx) = bestStrategy;  
+        end
+        
+        
+        % 3. prepare the next generation
+        for idx = 1:numel(GRID)
+            s = GRID(idx);
+            if s == bestStrategies(idx)
+                s = s;
+            else
+                s = bestStrategies(idx) + 2;
+            end
+            GRID(idx) = binarize(s);
+        end
+       
         image(GRID,'CDataMapping','scaled');
         colorbar
         
@@ -70,38 +99,52 @@ function main()
         end
     end
 
-    function [n] = getNeighbors(index)
+    function [n,m] = getNeighbors(index)
         sz = [l l];
         [x,y] = ind2sub(sz,index);  
         n = [];
+        m = [];
         if x-1 >= 1 && y+1 <= l
             n = [n, GRID(x-1,y+1)]; % bottom left
+            m = [m, SCORE(x-1,y+1)];
         end
         if y + 1 <= l
             n = [n, GRID(x,y+1)]; % bottom
+            m = [m, SCORE(x,y+1)]; 
         end
         if x + 1 <= l && y + 1 <= l
             n = [n, GRID(x+1,y+1)]; % bottom right
+            m = [m, SCORE(x+1,y+1)];
         end
         if x - 1 >= 1
             n = [n, GRID(x-1,y)];  % left
+            m = [m, SCORE(x-1,y)];  
         end
         if x + 1 <= l
             n = [n, GRID(x+1,y)]; % right
+            m = [m, SCORE(x+1,y)]; 
         end
         if x - 1 >= 1 && y - 1 >= 1
             n = [n, GRID(x-1,y-1)]; % top left
+            m = [m, SCORE(x-1,y-1)]; 
         end
         if y - 1 >= 1
             n = [n, GRID(x,y-1)];  % top
+            m = [m, SCORE(x,y-1)];  % top
         end
         if x + 1 <= l && y - 1 >= 1
             n = [n, GRID(x+1,y-1)]; % top right
+            m = [m, SCORE(x+1,y-1)]; % top right
+        end
+    end
+
+    % transform from 0|2 -> 0 (cooperator)
+    %                1|3 -> 1 (defector)
+    function [a] = binarize(str)
+        if str < 2
+            a = str;
+        else
+            a = str - 2;
         end
     end
 end
-
-
-
-
-
