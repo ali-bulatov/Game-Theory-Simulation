@@ -29,15 +29,18 @@ function main()
     SCORE=(zeros(l));
 
     for i=1:1
+       
+        
         % 1. each agent accumulates the payoff obtained by playing
         %  the game with all its neighbours and itself
         for idx = 1:numel(GRID)
             X = GRID(idx);
             score = playGame(X, X);
-            
-            for n = 1:numel(N)
-                score = score + playGame(X, N);
-            end
+            N = getNeighbors(idx);
+            disp(getNeighbors(1));
+           % for n = 1:numel(N)
+           %     score = score + playGame(X, N);
+           % end
             SCORE(idx) = score;
         end
         
@@ -66,4 +69,42 @@ function main()
                 disp("Strategy should be either 0 or 1.");
         end
     end
+
+    function [n] = getNeighbors(index)
+        sz = [l l];
+        [x,y] = ind2sub(sz,index);  
+        n = [];
+        if x-1 > 1 && y+1 < l
+            n = [n, GRID(x-1,y+1)]; % top left
+        end
+        if y + 1 < l
+            n = [n, GRID(x,y+1)]; % top
+        end
+        if x + 1 < l && y + 1 < l
+            n = [n, GRID(x+1,y+1)]; % top right
+        end
+        if x - 1 > 1
+            n = [n, GRID(x-1,y)];  % left
+        end
+        if x + 1 < l
+            n = [n, GRID(x+1,y)]; % right
+        end
+        if x - 1 > 1 && y - 1 > 1
+            n = [n, GRID(x-1,y-1)]; % bottom left
+        end
+        if y - 1 > 1
+            n = [n, GRID(x,y-1)];  % bottom
+        end
+        if x + 1 < l && y - 1 > 1
+            n = [n, GRID(x+1,y-1)]; % bottom right
+        end
+    end
 end
+
+
+
+
+
+
+
+
