@@ -12,7 +12,7 @@ function main()
     h_fig = figure;
     % PAYOFF MATRIX
     % Reward for cheating
-    TEMPTATION = 1.3;
+    TEMPTATION = 2.5;
     % Sucker's payoff - when you cooperate and other one cheats
     S_PAYOFF = 0;
     % Reward for both cooperating
@@ -22,8 +22,10 @@ function main()
 
     % Automaton grid automaton_dimensions X automaton_dimensions
     % Cooperator = 0, Defector = 1
-    l=20;   % Automaton dimensions lxl
-    GRID=int8(rand(l,l));   % Randomly distribute amount of cooperators and defectors
+    l=50;   % Automaton dimensions lxl
+    %GRID=int8(rand(l,l));   % Randomly distribute amount of cooperators and defectors
+    GRID = zeros(l);
+    GRID(25,25) = 1;
     % Score matrix with scores of each player
     SCORE=(zeros(l));
     OUTPUT=zeros(l);
