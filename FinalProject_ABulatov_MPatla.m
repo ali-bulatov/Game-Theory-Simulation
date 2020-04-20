@@ -35,8 +35,8 @@ function main()
             X = GRID(idx);
             score = playGame(X, X);
             
-            for n = 1:numel(N)
-                score = score + playGame(X, N);
+            for n = 1:numel(idx)
+                score = score + playGame(X, n);
             end
             SCORE(idx) = score;
         end
