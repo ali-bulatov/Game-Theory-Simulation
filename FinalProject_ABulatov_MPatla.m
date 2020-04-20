@@ -37,7 +37,7 @@ function main()
             X = GRID(idx);
             score = playGame(X, X);
             N = getNeighbors(idx);
-            disp(getNeighbors(5));
+            disp(getNeighbors(3));
            % for n = 1:numel(N)
            %     score = score + playGame(X, N);
            % end
@@ -74,7 +74,6 @@ function main()
         sz = [l l];
         [x,y] = ind2sub(sz,index);  
         n = [];
-        disp (index + " index is " + x + " " + y );
         if x-1 >= 1 && y+1 <= l
             n = [n, GRID(x-1,y+1)]; % bottom left
         end
@@ -101,9 +100,6 @@ function main()
         end
     end
 end
-
-
-
 
 
 
