@@ -13,3 +13,7 @@ This simple, and purely deterministic, spatial version of the prisoner's dilemma
 
 ![](/img/state_1.png)
 ![](/img/state_2.png)
+
+#### References
+---
+[1] Nowak, M. A., & May, R. M. (1992). Evolutionary games and spatial chaos. Nature, 359(6398), 826. DOI:     http://dx.doi.org/10.1038/359826a0
