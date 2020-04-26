@@ -1,7 +1,8 @@
 # Game-Theory-Simulation
  This is a project that simulates and visualises the prisoner's dillema.
  It implements the spatial prisoner's dilemma game proposed by Nowak & May (1992) [1].
-### Details
+#### Details
+---
 In this model, agents are placed in a grid, where in each round:
 <ul>
  <li>every individual accumulates the payoff obtained by playing the prisoner's dilemma game with all its immediate neighbours and itself (only for the current round);</li>
@@ -10,7 +11,7 @@ In this model, agents are placed in a grid, where in each round:
 This simple, and purely deterministic, spatial version of the prisoner's dilemma game, with no memories among players and no strategical elaboration, can generate chaotically changing spatial patterns, including kaleidoscopes, dynamic fractals, gliders, and so on.
 
 #### Example Outputs
-
+---
 ![](/img/state_1.png)
 ![](/img/state_2.png)
 
